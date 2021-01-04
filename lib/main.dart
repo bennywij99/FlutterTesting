@@ -1,4 +1,5 @@
 
+import 'package:book/config/routes.dart';
 import 'package:book/constants/color.constants.dart';
 import 'package:book/screens/auth/login.dart';
 import 'package:book/screens/bookmark_screen.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
           accentColor: kMainColor,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent),
+          routes: AppRoutes.define(),
           home: LoginPage(),
       //routes: routesMap
     );

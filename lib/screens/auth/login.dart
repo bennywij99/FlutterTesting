@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:book/constants/color.constants.dart';
-import 'package:book/main.dart';
+import 'package:book/screens/home_sreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
@@ -46,15 +46,32 @@ class _LoginPageState extends State<LoginPage> {
     String usernameAPI = data['username'];
     String namalengkapAPI = data['namalengkap'];
     String id = data['id'];
-    if (status == 1) {
+    print(status);
+       if (status == 1) {
       setState(() {
         _loginStatus = LoginStatus.signIn;
         savePref(value, usernameAPI, namalengkapAPI, id);
       });
-      print(message);
     } else {
-      print(message);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) { 
+          return AlertDialog(
+            title: new Text("Error Message"),
+            content: new Text(message),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
+
   }
 
   savePref(int status, String username, String namalengkap, String id) async {
@@ -74,6 +91,8 @@ class _LoginPageState extends State<LoginPage> {
       value = preferences.getInt("value");
     });
   }
+
+  
 
   int _pageState = 0;
 
@@ -323,7 +342,7 @@ class _LoginPageState extends State<LoginPage> {
                                         child: TextFormField( 
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Invalid email!';
+                                              return 'Username cannot be empty';
                                             }
                                             return null;
                                           },
@@ -494,7 +513,7 @@ class _LoginPageState extends State<LoginPage> {
         );
       break;
         case LoginStatus.signIn:
-        return MyBottomNavigationBar();
+        return HomeScreen();
       break;
     }
   }
@@ -667,3 +686,5 @@ class _OutlineButtonState extends State<OutlineButton> {
     );
   }
 }
+
+
