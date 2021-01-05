@@ -47,6 +47,7 @@ class SelectedBookScreen extends StatelessWidget {
                         top: 35,
                         child: GestureDetector(
                           onTap: () {
+                             //Navigator.of(context).pushNamed(AppRoutes.authRegister);
                             Navigator.pushReplacementNamed(
                               context, "/myBottom"
                             );
