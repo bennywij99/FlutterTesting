@@ -1,4 +1,3 @@
-import 'package:book/main.dart';
 import 'package:book/screens/auth/login.dart';
 import 'package:book/screens/bookmark_screen.dart';
 import 'package:book/screens/home_sreen.dart';

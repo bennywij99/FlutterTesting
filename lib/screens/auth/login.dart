@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:book/config/routes.dart';
 import 'package:book/constants/color.constants.dart';
 import 'package:book/main.dart';
 import 'package:flutter/material.dart';
@@ -145,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           _isLoading = false;
         });
+        print(jsonResponse);
         sharedPreferences.setString("token", jsonResponse['token']);
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => MyBottomNavigationBar()), (Route<dynamic> route) => false);
       }

@@ -7,6 +7,7 @@ import 'package:book/widgets/custom_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,6 +33,49 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kWhiteColor,
+        title:     
+        Container(
+          margin: EdgeInsets.only(left: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded( 
+                child: Text(
+                  'Hi, Benny',
+                  style: GoogleFonts.openSans(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: kGreyColor),
+                ),
+              ),
+              IconButton(
+                icon: Icon(MdiIcons.cart, color: kGreyColor,),
+                onPressed: () {
+                  sharedPreferences.clear();
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
+                },
+              ),
+              IconButton(
+                icon: Icon(MdiIcons.bell, color: kGreyColor,),
+                onPressed: () {
+                  sharedPreferences.clear();
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
+                },
+              ),
+              IconButton(
+                icon: Icon(MdiIcons.logout, color: kGreyColor,),
+                onPressed: () {
+                  sharedPreferences.clear();
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
+                },
+              ),
+            ]
+          ),
+        ),
+        elevation: 0,
+      ),
       backgroundColor: kMainColor,
       // bottomNavigationBar: BottomNavigation(),
       body: SafeArea(
@@ -40,28 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: 25, top: 25),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Hi, Benny',
-                      style: GoogleFonts.openSans(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: kGreyColor),
-                    ),
-                    Text(
-                      'Discover Latest Book',
-                      style: GoogleFonts.openSans(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: kBlackColor),
-                    ),
-                  ],
-                ),
-              ),
               Container(
                 height: 39,
                 margin: EdgeInsets.only(left: 25, right: 25, top: 18),
