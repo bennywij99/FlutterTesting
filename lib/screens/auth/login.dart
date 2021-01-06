@@ -138,7 +138,8 @@ class _LoginPageState extends State<LoginPage> {
     };
     var jsonResponse;
     var response = await http.post("http://jerrysibarani.com/androidserverapi/myapi/login_api", body: data);
-    if(response.statusCode == 200) {
+    print(response.statusCode);
+    if(response.statusCode == 201) {
       jsonResponse = json.decode(response.body);
       if(jsonResponse != null) {
         setState(() {
@@ -147,13 +148,12 @@ class _LoginPageState extends State<LoginPage> {
         sharedPreferences.setString("token", jsonResponse['token']);
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => MyBottomNavigationBar()), (Route<dynamic> route) => false);
       }
-    }
-    else {
+    } else {
       setState(() {
         _isLoading = false;
       });
       print(response.body);
-      Navigator.of(context).pushNamed(AppRoutes.myBottom);
+      // Navigator.of(context).pushNamed(AppRoutes.myBottom);
     }
   }
 

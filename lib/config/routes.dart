@@ -18,7 +18,6 @@ class AppRoutes {
       homeScreen: (context) => HomeScreen(),
       
       bookmark: (context) => BookmarkScreen(),
-      myBottom: (context) => MyBottomNavigationBar(),
     };
   }
 }

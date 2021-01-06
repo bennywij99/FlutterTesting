@@ -16,10 +16,11 @@ class BookmarkScreen extends StatefulWidget {
 class _BookmarkScreenState extends State<BookmarkScreen> {
   @override
  Widget build(BuildContext context) {
-        return Scaffold(
-      // bottomNavigationBar: BottomNavigation(),
+    return Scaffold(
+      backgroundColor: kMainColor,
       body: SafeArea(
         child: Container(
+          color: kWhiteColor,
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: <Widget>[

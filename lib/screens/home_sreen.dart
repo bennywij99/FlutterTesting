@@ -1,11 +1,13 @@
 import 'package:book/constants/color.constants.dart';
 import 'package:book/models/newbook_model.dart';
 import 'package:book/models/popularbook_model.dart';
+import 'package:book/screens/auth/login.dart';
 import 'package:book/screens/selected_book_screen.dart';
 import 'package:book/widgets/custom_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,12 +15,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+   SharedPreferences sharedPreferences;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if(sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kMainColor,
       // bottomNavigationBar: BottomNavigation(),
       body: SafeArea(
         child: Container(
+          color: kWhiteColor,
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: <Widget>[
