@@ -1,14 +1,17 @@
 
 import 'package:book/constants/color.constants.dart';
+import 'package:book/enums.dart';
 import 'package:book/models/popularbook_model.dart';
 import 'package:book/screens/selected_book_screen.dart';
+import 'package:book/widgets/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
 class BookmarkScreen extends StatefulWidget {
-    BookmarkScreen({Key key}) : super(key: key);
+  static String routeName = "/bookmark";
+  BookmarkScreen({Key key}) : super(key: key);
   @override
   _BookmarkScreenState createState() => _BookmarkScreenState();
 }
@@ -17,6 +20,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
   @override
  Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.bookmark),
       backgroundColor: kMainColor,
       body: SafeArea(
         child: Container(

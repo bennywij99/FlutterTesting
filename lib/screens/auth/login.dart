@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:book/constants/color.constants.dart';
-import 'package:book/main.dart';
+import 'package:book/screens/home/home_sreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -146,14 +146,13 @@ class _LoginPageState extends State<LoginPage> {
         });
         print(jsonResponse);
         sharedPreferences.setString("token", jsonResponse['token']);
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => MyBottomNavigationBar()), (Route<dynamic> route) => false);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => HomeScreen()), (Route<dynamic> route) => false);
       }
     } else {
       setState(() {
         _isLoading = false;
       });
       print(response.body);
-      // Navigator.of(context).pushNamed(AppRoutes.myBottom);
     }
   }
 

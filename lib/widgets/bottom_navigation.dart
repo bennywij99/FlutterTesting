@@ -1,99 +1,77 @@
 import 'package:book/constants/color.constants.dart';
 import 'package:book/screens/bookmark_screen.dart';
-import 'package:book/screens/home_sreen.dart';
-import 'package:book/screens/splash_screen.dart';
+import 'package:book/screens/home/home_sreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../enums.dart';
 
-class BottomNavigation extends StatefulWidget {
-  BottomNavigation({Key key}) : super(key: key);
-  @override
-  _BottomNavigationState createState() => _BottomNavigationState();
-}
+class CustomBottomNavBar extends StatelessWidget {
+  const CustomBottomNavBar({
+    Key key,
+    @required this.selectedMenu,
+  }) : super(key: key);
 
-class _BottomNavigationState extends State<BottomNavigation> {
-  var bottomTextStyle =
-      GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w500);
-
-  PageController _pageController = PageController();
-  List<Widget> _screens = [HomeScreen(), BookmarkScreen(), SplashScreen()];
-
-  int _selectedIndex = 0;
-  void _onPageChanged(int index) {
-    // setState(() {
-    //   _selectedIndex = index;
-    // });
-  }
-
-  void _onItemTapped(int selectedIndex) {
-    print(selectedIndex);
-    // _pageController.jumpToPage(selectedIndex);
-  }
+  final MenuState selectedMenu;
 
   @override
   Widget build(BuildContext context) {
-  PageView(
-      controller: _pageController,
-      children: _screens,
-      onPageChanged: _onPageChanged,
-      physics: NeverScrollableScrollPhysics(),
-    );
+    final Color inActiveIconColor = kGreyColor;
     return Container(
-      height: 55,
+      padding: EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
-        color: kWhiteColor,
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 2,
-              blurRadius: 15,
-              offset: Offset(0, 5))
+            offset: Offset(0, -15),
+            blurRadius: 20,
+            color: kWhiteColor.withOpacity(0.15),
+          ),
         ],
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(5),
-          topRight: Radius.circular(5),
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
         ),
       ),
-      child: BottomNavigationBar(
-        onTap: _onItemTapped,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: _selectedIndex == 0
-                ? new SvgPicture.asset('assets/icons/icon_home_colored.svg')
-                : new SvgPicture.asset('assets/icons/icon_home_grey.svg'),
-            title: Text(
-              'Home',
-              style: bottomTextStyle,
+      child: SafeArea(
+        top: false,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: SvgPicture.asset(
+                 MenuState.home == selectedMenu
+                    ? "assets/icons/icon_home_colored.svg"
+                    : "assets/icons/icon_home_grey.svg"
+              ),
+              onPressed: () =>
+                  Navigator.pushNamed(context, HomeScreen.routeName),
             ),
-          ),
-          BottomNavigationBarItem(
-            icon: _selectedIndex == 1
-                ? new SvgPicture.asset('assets/icons/icon_bookmark_colored.svg')
-                : new SvgPicture.asset('assets/icons/icon_bookmark_grey.svg'),
-            title: Text(
-              'Bookmark',
-              style: bottomTextStyle,
+            IconButton(
+              icon: SvgPicture.asset(
+                MenuState.bookmark == selectedMenu
+                ? "assets/icons/icon_bookmark_colored.svg"
+                : "assets/icons/icon_bookmark_grey.svg"
+              ),
+              onPressed: () =>
+                Navigator.pushNamed(context, BookmarkScreen.routeName),
             ),
-          ),
-          BottomNavigationBarItem(
-            icon: _selectedIndex == 2
-                ? new SvgPicture.asset('assets/icons/icon_user_colored.svg')
-                : new SvgPicture.asset('assets/icons/icon_user_grey.svg'),
-            title: Text(
-              'Account',
-              style: bottomTextStyle,
+            
+            IconButton(
+              icon: SvgPicture.asset("assets/icons/icon_user_grey.svg"),
+              onPressed: () {},
             ),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: kMainColor,
-        unselectedItemColor: kGreyColor,
-        backgroundColor: Colors.transparent,
-        type: BottomNavigationBarType.fixed,
-        selectedFontSize: 12,
-        showUnselectedLabels: true,
-        elevation: 0,
+            IconButton(
+              icon: SvgPicture.asset(
+                "assets/icons/icon_user_grey.svg",
+                color: MenuState.account == selectedMenu
+                    ? kMainColor
+                    : inActiveIconColor,
+              ),
+              onPressed: () =>
+                  Navigator.pushNamed(context, HomeScreen.routeName),
+            ),
+          ],
+        )
       ),
     );
   }

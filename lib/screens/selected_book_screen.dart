@@ -1,4 +1,3 @@
-import 'package:book/config/routes.dart';
 import 'package:book/constants/color.constants.dart';
 import 'package:book/models/popularbook_model.dart';
 import 'package:book/widgets/custom_tab_indicator.dart';
@@ -48,7 +47,7 @@ class SelectedBookScreen extends StatelessWidget {
                         top: 35,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.myBottom);
+                            //Navigator.of(context).pushNamed(AppRoutes.myBottom);
                              //Navigator.pushReplacementNamed(context, "/myBottom");
                           },
                           child: Container(

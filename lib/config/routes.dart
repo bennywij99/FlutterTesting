@@ -1,22 +1,11 @@
-import 'package:book/screens/auth/login.dart';
+
 import 'package:book/screens/bookmark_screen.dart';
-import 'package:book/screens/home_sreen.dart';
-import 'package:flutter/material.dart';
+import 'package:book/screens/home/home_sreen.dart';
+import 'package:flutter/widgets.dart';
 
-class AppRoutes {
-  AppRoutes._();
-
-  static const String authLogin = '/auth-login';
-  static const String homeScreen = '/homeScreen';
-  static const String bookmark = '/bookmark';
-  static const String myBottom = '/myBottom';
-
-  static Map<String, WidgetBuilder> define() {
-    return {
-      authLogin: (context) => LoginPage(),
-      homeScreen: (context) => HomeScreen(),
-      
-      bookmark: (context) => BookmarkScreen(),
-    };
-  }
-}
+// We use name route
+// All our routes will be available here
+final Map<String, WidgetBuilder> routes = {
+  HomeScreen.routeName: (context) => HomeScreen(),
+  BookmarkScreen.routeName: (context) => BookmarkScreen()
+};
