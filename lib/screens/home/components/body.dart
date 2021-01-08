@@ -1,14 +1,13 @@
 import 'package:book/constants/color.constants.dart';
 import 'package:book/screens/auth/login.dart';
+import 'package:book/screens/home/components/header.dart';
+import 'package:book/screens/home/components/popular.dart';
+import 'package:book/screens/home/components/tab.dart';
 import 'package:book/widgets/custom_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:book/models/popularbook_model.dart';
-import 'package:book/models/newbook_model.dart';
-
-import '../../selected_book_screen.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -35,71 +34,8 @@ class _BodyState extends State<Body> {
     return NestedScrollView(
       scrollDirection: Axis.vertical,
       headerSliverBuilder: (context, innerBoxIsScrolled) {
-      return <Widget>[
-        SliverAppBar(
-          backgroundColor: kMainColor,
-          expandedHeight: 200.0,
-          pinned: true,
-           title: Column(
-              children: <Widget>[
-                Container(
-                  height: 25,
-                  margin: EdgeInsets.only(left: 3, right: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: kLightGreyColor
-                  ),
-                  child: Stack(
-                    children: <Widget>[
-                      TextField(
-                        maxLengthEnforced: true,
-                        style: GoogleFonts.openSans(
-                          fontSize: 11,
-                          color: kBlackColor,
-                          fontWeight: FontWeight.w600
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding:
-                              EdgeInsets.only(left: 19, bottom: 15),
-                          border: InputBorder.none,
-                            hintText: 'Search Book..',
-                            prefixIcon: Icon(Icons.search, color: kGreyColor
-                          ),
-                          hintStyle: GoogleFonts.openSans(
-                            fontSize: 11,
-                            color: kGreyColor,
-                            fontWeight: FontWeight.w600
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            flexibleSpace:  FlexibleSpaceBar(
-            collapseMode: CollapseMode.parallax,
-              background: Image.asset(
-                "assets/images/splash2.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(MdiIcons.cart),
-                tooltip: 'Cart',
-                onPressed: () {
-                  sharedPreferences.clear();
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
-                },
-              ),
-              IconButton(
-                icon: Icon(MdiIcons.bell),
-                tooltip: 'Notification',
-                onPressed: () {/* ... */},
-              ),
-            ],
-          ),
+        return <Widget>[
+          HeaderHome()
         ];
       },
       body: SafeArea(
@@ -150,29 +86,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                   ),
-              Container(
-                    margin: EdgeInsets.only(top: 21),
-                    height: 210,
-                    child: ListView.builder(
-                      padding: EdgeInsets.only(left: 25, right: 6),
-                      itemCount: newbooks.length,
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.only(right: 19),
-                          height: 210,
-                          width: 153,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: kMainColor,
-                              image: DecorationImage(
-                                image: AssetImage(newbooks[index].image),
-                              )),
-                        );
-                      },
-                    ),
-                  ),
+              TabHome(),
 
               Padding(
                     padding: EdgeInsets.only(left: 25, top: 25),
@@ -189,82 +103,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-              ListView.builder(
-                      padding: EdgeInsets.only(top: 25, right: 25, left: 25),
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: populars.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            print('ListView Tapped');
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SelectedBookScreen(
-                                    popularBookModel: populars[index]),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 19),
-                            height: 81,
-                            width: MediaQuery.of(context).size.width - 50,
-                            color: kBackgroundColor,
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  height: 81,
-                                  width: 62,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      image: DecorationImage(
-                                        image: AssetImage(populars[index].image),
-                                      ),
-                                      color: kMainColor),
-                                ),
-                                SizedBox(
-                                  width: 21,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      populars[index].title,
-                                      style: GoogleFonts.openSans(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: kBlackColor),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      populars[index].author,
-                                      style: GoogleFonts.openSans(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w400,
-                                          color: kGreyColor),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      '\$' + populars[index].price,
-                                      style: GoogleFonts.openSans(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: kBlackColor),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      })
-
+              PopularHome(),
             ],
           ),
         ),
