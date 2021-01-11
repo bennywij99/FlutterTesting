@@ -1,9 +1,6 @@
 import 'package:book/constants/color.constants.dart';
 import 'package:book/models/newbook_model.dart';
-import 'package:book/widgets/custom_tab_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 
 class TabHome extends StatefulWidget {
   @override
@@ -27,11 +24,12 @@ class _TabHomeState extends State<TabHome> {
             height: 210,
             width: 153,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: kMainColor,
-                image: DecorationImage(
-                  image: AssetImage(newbooks[index].image),
-                )),
+              borderRadius: BorderRadius.circular(10),
+              color: kMainColor,
+              image: DecorationImage(
+                image: AssetImage(newbooks[index].image),
+              )
+            ),
           );
         },
       ),

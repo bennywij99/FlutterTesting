@@ -1,5 +1,6 @@
 import 'package:book/constants/color.constants.dart';
 import 'package:book/models/popularbook_model.dart';
+import 'package:book/screens/bookmark_screen.dart';
 import 'package:book/widgets/custom_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,7 +48,7 @@ class SelectedBookScreen extends StatelessWidget {
                         top: 35,
                         child: GestureDetector(
                           onTap: () {
-                            //Navigator.of(context).pushNamed(AppRoutes.myBottom);
+                            Navigator.of(context).pushNamed(BookmarkScreen.routeName);
                              //Navigator.pushReplacementNamed(context, "/myBottom");
                           },
                           child: Container(
